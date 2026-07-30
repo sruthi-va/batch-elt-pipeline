@@ -31,6 +31,26 @@ The dataset contains 20 columns:
 - `Airport_fee`
 - `cbd_congestion_fee`
 
+## Data Types
+
+The dataset contains the following data types:
+
+| Column | Data Type |
+|---|---|
+| VendorID | Integer |
+| tpep_pickup_datetime | Timestamp |
+| tpep_dropoff_datetime | Timestamp |
+| passenger_count | Float |
+| trip_distance | Float |
+| RatecodeID | Float |
+| store_and_fwd_flag | String |
+| PULocationID | Integer |
+| DOLocationID | Integer |
+| payment_type | Integer |
+| fare_amount | Float |
+| tip_amount | Float |
+| total_amount | Float |
+
 ## Initial Observations
 
 ### Time Information
