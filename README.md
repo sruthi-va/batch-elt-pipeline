@@ -1,8 +1,3 @@
-Yes — for a GitHub README, shorter is actually better. The previous one was closer to project documentation. A README should give someone a quick understanding of **what it is, how it works, and how to run it**.
-
-I would use this version:
-
-````markdown
 # Batch ELT Pipeline
 
 ## Project Overview
