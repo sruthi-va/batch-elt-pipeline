@@ -1,0 +1,26 @@
+import requests
+from pathlib import Path
+
+DATA_URL = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-07.parquet"
+OUTPUT_PATH = Path("data/raw/yellow_tripdata_2025-07.parquet")
+
+
+def download_data():
+    print("Starting download...")
+
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    response = requests.get(DATA_URL, stream=True)
+    response.raise_for_status()
+
+    print("Downloading NYC Taxi July 2025 data...")
+
+    with open(OUTPUT_PATH, "wb") as file:
+        for chunk in response.iter_content(chunk_size=8192):
+            file.write(chunk)
+
+    print(f"Download complete! Saved to {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    download_data()

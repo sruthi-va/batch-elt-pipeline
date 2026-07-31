@@ -9,6 +9,10 @@ __pycache__/
 # Local datasets
 data/
 
+# Data files
+data/raw/
+data/sample/
+
 # Terraform
 .terraform/
 *.tfstate
