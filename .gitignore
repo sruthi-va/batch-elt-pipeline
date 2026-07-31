@@ -8,3 +8,8 @@ __pycache__/
 
 # Local datasets
 data/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
