@@ -10,9 +10,11 @@ Current progress:
 - Automated data ingestion using Python
 - Stored raw data in AWS S3 Bronze layer
 - Provisioned AWS infrastructure using Terraform
+- Configured PySpark environment
+- Profiled Bronze dataset using Spark DataFrames
+- Identified data quality issues and defined Silver transformation rules
 
 Planned:
-- PySpark transformations
 - Snowflake warehouse integration
 - Airflow orchestration
 - Power BI dashboard
@@ -150,3 +152,117 @@ Cleaned and transformed data using PySpark.
 ## Gold
 
 Analytics-ready tables used for reporting and dashboards.
+
+
+# Data Profiling & Quality Checks
+
+Before building the Silver transformation layer, the Bronze dataset was analyzed using PySpark to understand data quality issues and define transformation rules.
+
+Dataset profiled:
+
+- NYC TLC Yellow Taxi Trip Data
+- July 2025
+- 3,898,963 total records
+
+## Null Analysis
+
+The following columns contained missing values:
+
+| Column | Null Count |
+| ------ | ----------: |
+| passenger_count | 1,038,755 |
+| RatecodeID | 1,038,755 |
+| store_and_fwd_flag | 1,038,755 |
+| congestion_surcharge | 1,038,755 |
+| Airport_fee | 1,038,755 |
+
+Null handling decisions will be made based on business meaning rather than removing all incomplete records.
+
+Examples:
+
+- `Airport_fee` null values may indicate the fee was not applicable.
+- `passenger_count` null values represent missing trip attributes and will be documented rather than blindly removed.
+
+## Data Quality Checks
+
+### Negative Value Checks
+
+Checked columns:
+
+- `trip_distance`
+- `fare_amount`
+- `tip_amount`
+- `total_amount`
+
+Results:
+
+| Column | Negative Values |
+| ------ | --------------: |
+| trip_distance | 0 |
+| fare_amount | 247,088 |
+| tip_amount | 122 |
+| total_amount | 76,455 |
+
+Negative financial values were investigated before removal.
+
+Analysis showed that negative fares were associated with negative total amounts and zero tips, suggesting these records represent refunds or transaction adjustments rather than corrupted data.
+
+Decision:
+
+- Preserve negative financial transactions in the Silver layer.
+- Allow downstream analytics tables to filter based on business requirements.
+
+## Duplicate Analysis
+
+Checked for exact duplicate records.
+
+Results:
+
+```
+
+Total rows:      3,898,963
+Distinct rows:   3,898,962
+Duplicates:      1
+
+```
+
+Decision:
+
+- Remove exact duplicate records during Silver transformation.
+
+## Timestamp Validation
+
+Checked for trips where:
+
+```
+
+dropoff_time < pickup_time
+
+```
+
+Results:
+
+```
+
+Invalid timestamp records: 1
+
+```
+
+Decision:
+
+- Remove records with impossible trip durations during Silver transformation.
+
+## Silver Layer Transformation Rules
+
+The Bronze → Silver transformation will:
+
+- Remove exact duplicate records
+- Remove impossible timestamp records
+- Preserve legitimate refund/adjustment transactions
+- Maintain raw Bronze data unchanged
+- Add derived analytical columns:
+  - trip duration
+  - pickup hour
+  - pickup day of week
+  - weekend indicator
+```
