@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, count, when
-
+from pyspark.sql.types import IntegerType
 
 
 
@@ -58,7 +58,6 @@ df = spark.read.parquet(file_path)
 # print(f"Distinct rows: {distinct_rows}")
 # print(f"Duplicate rows: {total_rows - distinct_rows}")
 
-# from pyspark.sql.functions import col
 
 # invalid_timestamps = df.filter(
 #     col("tpep_dropoff_datetime") < col("tpep_pickup_datetime")
@@ -78,5 +77,45 @@ df = df.fillna({
     "Airport_fee": 0
 })
 print("After cleaning:", df.count())
+
+from pyspark.sql.functions import col, count, when
+
+null_check = df.select(
+    count(when(col("congestion_surcharge").isNull(), True)).alias("congestion_nulls"),
+    count(when(col("Airport_fee").isNull(), True)).alias("airport_fee_nulls")
+)
+
+null_check.show()
+
+df = (
+    df
+    .withColumnRenamed("VendorID", "vendor_id")
+    .withColumnRenamed("tpep_pickup_datetime", "pickup_datetime")
+    .withColumnRenamed("tpep_dropoff_datetime", "dropoff_datetime")
+    .withColumnRenamed("RatecodeID", "rate_code_id")
+    .withColumnRenamed("PULocationID", "pickup_location_id")
+    .withColumnRenamed("DOLocationID", "dropoff_location_id")
+    .withColumnRenamed("Airport_fee", "airport_fee")
+)
+
+df.groupBy("store_and_fwd_flag").count().show()
+
+df = (
+    df
+    .withColumn(
+        "passenger_count",
+        col("passenger_count").cast(IntegerType())
+    )
+    .withColumn(
+        "rate_code_id",
+        col("rate_code_id").cast(IntegerType())
+    )
+    .withColumn(
+        "payment_type",
+        col("payment_type").cast(IntegerType())
+    )
+)
+
+df.printSchema()
 
 spark.stop()
