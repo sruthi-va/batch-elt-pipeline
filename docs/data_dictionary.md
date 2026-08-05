@@ -48,3 +48,39 @@ Potential features that can be created during transformation:
 | tip_percentage | Tip amount as a percentage of fare |
 | pickup_hour | Hour extracted from pickup timestamp |
 | pickup_day_of_week | Day of week extracted from pickup timestamp |
+
+# Gold Layer
+
+## gold_daily_trip_summary
+
+**Purpose**
+
+Provides daily aggregated metrics for taxi demand, trip characteristics, and revenue. This table supports trend analysis and executive reporting.
+
+**Grain**
+
+One row per pickup date.
+
+---
+
+## gold_hourly_demand
+
+**Purpose**
+
+Aggregates taxi demand by pickup hour to identify peak travel periods and hourly revenue patterns.
+
+**Grain**
+
+One row per pickup date and pickup hour.
+
+---
+
+## gold_location_metrics
+
+**Purpose**
+
+Summarizes trip activity and financial performance by pickup location to support geographic analysis.
+
+**Grain**
+
+One row per pickup location.
