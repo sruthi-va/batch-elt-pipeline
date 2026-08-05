@@ -12,7 +12,8 @@ Current progress:
 - Provisioned AWS infrastructure using Terraform
 - Configured PySpark environment
 - Profiled Bronze dataset using Spark DataFrames
-- Identified data quality issues and defined Silver transformation rules
+- Built Bronze → Silver transformation pipeline
+- Cleaned and validated Silver dataset using PySpark
 
 Planned:
 - Snowflake warehouse integration
@@ -46,7 +47,7 @@ F[Power BI Dashboard]
 | AWS S3     | Raw data storage                 |
 | Terraform  | Infrastructure as Code           |
 | boto3      | Upload data to S3                |
-| PySpark    | Data transformation (planned)    |
+| PySpark    | Data cleaning and transformation |
 | Snowflake  | Data warehouse (planned)         |
 | Airflow    | Pipeline orchestration (planned) |
 | Power BI   | Visualization (planned)          |
@@ -254,15 +255,69 @@ Decision:
 
 ## Silver Layer Transformation Rules
 
-The Bronze → Silver transformation will:
+The Bronze → Silver transformation:
 
-- Remove exact duplicate records
-- Remove impossible timestamp records
-- Preserve legitimate refund/adjustment transactions
-- Maintain raw Bronze data unchanged
-- Add derived analytical columns:
+- Removes exact duplicate records
+- Removes impossible timestamp records
+- Preserves legitimate refund/adjustment transactions
+- Renames inconsistent columns
+- Standardizes data formats
+- Maintains raw Bronze data unchanged
+- Adds derived analytical columns:
   - trip duration
+  - average speed
   - pickup hour
   - pickup day of week
   - weekend indicator
+  - trip distance category
+```
+# Bronze → Silver Transformation
+
+The Silver layer converts raw Bronze data into a cleaned and analytics-ready dataset using PySpark.
+
+## Cleaning Steps Performed
+
+The transformation pipeline:
+
+- Removed exact duplicate records
+- Removed invalid trips where dropoff time occurred before pickup time
+- Preserved valid financial adjustment records (negative fares/refunds)
+- Renamed inconsistent columns for readability
+- Standardized timestamp and column formats
+
+Results:
+```
+Bronze rows: 3,898,963
+Silver rows: 3,898,961
+Rows removed: 2
+```
+
+
+Removed records:
+- 1 duplicate row
+- 1 invalid timestamp record
+
+
+## Derived Columns Added
+
+The Silver dataset includes additional fields to support analytics:
+
+| Column | Description |
+| ------ | ----------- |
+| trip_duration_minutes | Total trip time in minutes |
+| average_speed_mph | Average trip speed |
+| pickup_hour | Hour of day when trip started |
+| pickup_day_of_week | Day of week when trip started |
+| is_weekend | Indicates weekend trips |
+| trip_distance_category | Categorizes trips by distance |
+
+The Silver dataset is stored as partitioned Parquet files:
+```
+silver/
+└── yellow/
+└── year=2025/
+└── month=07/
+```
+
+Parquet was chosen because it is optimized for analytical workloads and supports efficient column-based queries.
 ```
