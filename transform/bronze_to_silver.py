@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, when
+from pyspark.sql.functions import col, count, when, hour
 from pyspark.sql.types import IntegerType
-
+from pyspark.sql.functions import unix_timestamp, dayofweek
 
 
 spark = SparkSession.builder \
@@ -66,7 +66,7 @@ df = spark.read.parquet(file_path)
 # print(f"Trips with dropoff before pickup: {invalid_timestamps}")
 
 #Data Cleaning and Transformation
-print("Before cleaning:", df.count())
+#print("Before cleaning:", df.count())
 df = df.dropDuplicates()
 df = df.filter(
     col("tpep_dropoff_datetime") >= col("tpep_pickup_datetime")
@@ -76,16 +76,15 @@ df = df.fillna({
     "congestion_surcharge": 0,
     "Airport_fee": 0
 })
-print("After cleaning:", df.count())
+#print("After cleaning:", df.count())
 
-from pyspark.sql.functions import col, count, when
 
 null_check = df.select(
     count(when(col("congestion_surcharge").isNull(), True)).alias("congestion_nulls"),
     count(when(col("Airport_fee").isNull(), True)).alias("airport_fee_nulls")
 )
 
-null_check.show()
+#null_check.show()
 
 df = (
     df
@@ -98,7 +97,7 @@ df = (
     .withColumnRenamed("Airport_fee", "airport_fee")
 )
 
-df.groupBy("store_and_fwd_flag").count().show()
+#df.groupBy("store_and_fwd_flag").count().show()
 
 df = (
     df
@@ -116,6 +115,61 @@ df = (
     )
 )
 
-df.printSchema()
+#df.printSchema()
+
+
+#Derived Columns
+df = df.withColumn(
+    "trip_duration_minutes",
+    (
+        unix_timestamp(col("dropoff_datetime")) -
+        unix_timestamp(col("pickup_datetime"))
+    ) / 60
+)
+
+df = df.withColumn(
+    "average_speed_mph",
+    when(
+        col("trip_duration_minutes") > 0,
+        col("trip_distance") / (col("trip_duration_minutes") / 60)
+    )
+)
+
+df = df.withColumn(
+    "pickup_hour",
+    hour(col("pickup_datetime"))
+)
+
+df = df.withColumn(
+    "pickup_day_of_week",
+    dayofweek(col("pickup_datetime"))
+)
+
+df = df.withColumn(
+    "is_weekend",
+    when(
+        col("pickup_day_of_week").isin(1,7),
+        True
+    ).otherwise(False)
+)
+
+df = df.withColumn(
+    "trip_distance_category",
+    when(col("trip_distance") < 5, "short")
+    .when(col("trip_distance") < 15, "medium")
+    .otherwise("long")
+)
+
+# df.select(
+#     "pickup_datetime",
+#     "dropoff_datetime",
+#     "trip_duration_minutes",
+#     "trip_distance",
+#     "average_speed_mph",
+#     "pickup_hour",
+#     "pickup_day_of_week",
+#     "is_weekend",
+#     "trip_distance_category"
+# ).show(10)
 
 spark.stop()
