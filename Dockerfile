@@ -1,5 +1,8 @@
 FROM apache/spark:4.0.0-python3
 
+ENV SPARK_HOME=/opt/spark
+ENV PATH="$SPARK_HOME/bin:$PATH"
+
 USER root
 
 WORKDIR /app
@@ -15,4 +18,4 @@ RUN mkdir -p /app/artifacts /app/data /app/output \
 
 USER spark
 
-CMD ["/opt/spark/bin/spark-submit", "validation/validate_transformation.py"]
+CMD ["spark-submit", "validation/validate_transformation.py"]
