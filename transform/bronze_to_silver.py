@@ -18,7 +18,7 @@ file_path = "data/raw/yellow_tripdata_2025-07.parquet"
 df = spark.read.parquet(file_path)
 
 
-
+# Profiling code:
 #null_counts = df.select([
 #    count(when(col(c).isNull(), c)).alias(c)
 #    for c in df.columns
@@ -58,10 +58,25 @@ df = spark.read.parquet(file_path)
 # print(f"Distinct rows: {distinct_rows}")
 # print(f"Duplicate rows: {total_rows - distinct_rows}")
 
-from pyspark.sql.functions import col
+# from pyspark.sql.functions import col
 
-invalid_timestamps = df.filter(
-    col("tpep_dropoff_datetime") < col("tpep_pickup_datetime")
-).count()
+# invalid_timestamps = df.filter(
+#     col("tpep_dropoff_datetime") < col("tpep_pickup_datetime")
+# ).count()
 
-print(f"Trips with dropoff before pickup: {invalid_timestamps}")
+# print(f"Trips with dropoff before pickup: {invalid_timestamps}")
+
+#Data Cleaning and Transformation
+print("Before cleaning:", df.count())
+df = df.dropDuplicates()
+df = df.filter(
+    col("tpep_dropoff_datetime") >= col("tpep_pickup_datetime")
+)
+
+df = df.fillna({
+    "congestion_surcharge": 0,
+    "Airport_fee": 0
+})
+print("After cleaning:", df.count())
+
+spark.stop()
