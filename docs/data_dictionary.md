@@ -84,3 +84,38 @@ Summarizes trip activity and financial performance by pickup location to support
 **Grain**
 
 One row per pickup location.
+
+# Snowflake Warehouse Design
+
+Database:
+TAXI_ANALYTICS
+
+Schemas:
+
+## GOLD
+
+Contains analytics-ready aggregated tables used by BI tools.
+
+Tables:
+
+### DAILY_TRIP_SUMMARY
+
+Purpose:
+Tracks daily taxi activity and revenue trends.
+
+Primary use cases:
+- Daily demand analysis
+- Revenue trends
+- Trip performance monitoring
+
+
+### HOURLY_DEMAND
+
+Purpose:
+Analyzes taxi demand by pickup hour and weekday/weekend patterns.
+
+
+### LOCATION_METRICS
+
+Purpose:
+Measures taxi zone performance including revenue and trip volume.
