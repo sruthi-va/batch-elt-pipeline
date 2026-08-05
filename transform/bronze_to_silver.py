@@ -3,10 +3,12 @@ from pyspark.sql.functions import col, count, when, hour
 from pyspark.sql.types import IntegerType
 from pyspark.sql.functions import unix_timestamp, dayofweek
 
-
-spark = SparkSession.builder \
-    .appName("NYCTaxiBronzeToSilver") \
+spark = (
+    SparkSession.builder
+    .appName("BronzeToSilver")
+    .config("spark.hadoop.hadoop.home.dir", "C:/hadoop")
     .getOrCreate()
+)
 
 
 spark.sparkContext.setLogLevel("ERROR")
@@ -171,5 +173,17 @@ df = df.withColumn(
 #     "is_weekend",
 #     "trip_distance_category"
 # ).show(10)
+
+silver_path = "data/silver/yellow/year=2025/month=07"
+
+df.write.mode("overwrite").parquet(silver_path)
+
+silver_df = spark.read.parquet(silver_path)
+
+print("Silver row count:", silver_df.count())
+
+silver_df.printSchema()
+
+silver_df.show(5)
 
 spark.stop()
