@@ -174,8 +174,7 @@ df = df.withColumn(
 #     "trip_distance_category"
 # ).show(10)
 
-silver_path = "data/silver/yellow/year=2025/month=07"
-
+silver_path = "/app/output/silver/yellow/year=2025/month=07"
 df.write.mode("overwrite").parquet(silver_path)
 
 silver_df = spark.read.parquet(silver_path)

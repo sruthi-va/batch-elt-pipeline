@@ -15,4 +15,4 @@ RUN mkdir -p /app/artifacts /app/data /app/output \
 
 USER spark
 
-CMD ["/opt/spark/bin/spark-submit", "transform/bronze_to_silver.py"]
+CMD ["/opt/spark/bin/spark-submit", "validation/validate_transformation.py"]
