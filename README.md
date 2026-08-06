@@ -377,8 +377,6 @@ terraform destroy
 
 This destroys provisioned infrastructure and prevents unnecessary cloud costs from unused resources.
 
-```
-
 # Future Improvements
 
 - Connect Power BI dashboard
