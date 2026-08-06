@@ -47,6 +47,35 @@ F[Power BI Dashboard]
 | Snowflake | Cloud data warehouse |
 | Power BI | Analytics visualization |
 
+```markdown
+## Infrastructure
+
+Cloud infrastructure is managed using Terraform to make the pipeline reproducible and version controlled.
+
+Architecture:
+
+```
+
+AWS S3
+├── Bronze Layer
+│   └── Raw taxi data
+│
+├── Silver Layer
+│   └── Cleaned Parquet data
+│
+└── Gold Layer
+└── Analytics-ready datasets
+
+Terraform
+└── Provisions and manages AWS resources
+
+Snowflake
+└── Analytics warehouse for Gold tables
+
+```
+
+Terraform allows the required cloud resources to be recreated without manual configuration.
+```
 
 ## Project Structure
 
@@ -303,11 +332,56 @@ validate_gold
    ↓
 load_to_snowflake
 ```
+```markdown
+## CI/CD
 
+GitHub Actions automatically validates code changes on every push and pull request.
+
+The CI pipeline performs:
+
+- Installing project dependencies
+- Running automated tests with pytest
+- Checking code quality using flake8
+
+Workflow:
+
+```
+
+Code Change
+|
+v
+GitHub Actions
+|
+v
+Install Dependencies
+|
+v
+Run Tests
+|
+v
+Run Linting
+|
+v
+Pipeline Validation Complete
+
+```
+
+This helps catch transformation errors and maintain consistent code quality before changes are merged.
+```
+
+````markdown
+## Cleaning Up Cloud Resources
+
+To remove AWS resources created by Terraform:
+
+```bash
+terraform destroy
+````
+
+This destroys provisioned infrastructure and prevents unnecessary cloud costs from unused resources.
+
+```
 
 # Future Improvements
 
 - Connect Power BI dashboard
-- Add automated data quality framework
-- Add CI/CD pipeline using GitHub Actions
-- Deploy pipeline infrastructure to cloud environment
