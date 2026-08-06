@@ -72,12 +72,19 @@ x-airflow-common:
     # The following line can be used to set a custom config file, stored in the local config folder
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+    SNOWFLAKE_USER: ${SNOWFLAKE_USER}
+    SNOWFLAKE_PASSWORD: ${SNOWFLAKE_PASSWORD}
+    SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
+    SNOWFLAKE_DATABASE: ${SNOWFLAKE_DATABASE}
+    SNOWFLAKE_SCHEMA: ${SNOWFLAKE_SCHEMA}
+    SNOWFLAKE_WAREHOUSE: ${SNOWFLAKE_WAREHOUSE}
   volumes:
+    - ../:/opt/project
     - ../dags:/opt/airflow/dags
-    - ../ingestion:/opt/airflow/ingestion
-    - ../transform:/opt/airflow/transform
-    - ../validation:/opt/airflow/validation
-    - ../snowflake:/opt/airflow/snowflake
+    - ../ingestion:/opt/project/ingestion
+    - ../transform:/opt/project/transform
+    - ../validation:/opt/project/validation
+    - ../snowflake:/opt/project/snowflake
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
@@ -135,6 +142,17 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    volumes:
+      - ../:/opt/project
+      - ../dags:/opt/airflow/dags
+      - ../ingestion:/opt/project/ingestion
+      - ../transform:/opt/project/transform
+      - ../validation:/opt/project/validation
+      - ../snowflake:/opt/project/snowflake
+      - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
+      - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
+      - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock
 
   airflow-scheduler:
     <<: *airflow-common
@@ -150,7 +168,17 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+    volumes:
+      - ../:/opt/project
+      - ../dags:/opt/airflow/dags
+      - ../ingestion:/opt/project/ingestion
+      - ../transform:/opt/project/transform
+      - ../validation:/opt/project/validation
+      - ../snowflake:/opt/project/snowflake
+      - ./logs:/opt/airflow/logs
+      - ./config:/opt/airflow/config
+      - ./plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock
   airflow-worker:
     <<: *airflow-common
     command: celery worker
@@ -173,6 +201,17 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    volumes:
+      - ../:/opt/project
+      - ../dags:/opt/airflow/dags
+      - ../ingestion:/opt/project/ingestion
+      - ../transform:/opt/project/transform
+      - ../validation:/opt/project/validation
+      - ../snowflake:/opt/project/snowflake
+      - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
+      - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
+      - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock
 
   airflow-triggerer:
     <<: *airflow-common
@@ -188,6 +227,17 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    volumes:
+      - ../:/opt/project
+      - ../dags:/opt/airflow/dags
+      - ../ingestion:/opt/project/ingestion
+      - ../transform:/opt/project/transform
+      - ../validation:/opt/project/validation
+      - ../snowflake:/opt/project/snowflake
+      - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
+      - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
+      - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock
 
   airflow-init:
     <<: *airflow-common
@@ -252,6 +302,7 @@ services:
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
+      - /var/run/docker.sock:/var/run/docker.sock
 
   airflow-cli:
     <<: *airflow-common
@@ -265,7 +316,16 @@ services:
       - bash
       - -c
       - airflow
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
+  spark:
+    image: batch-elt-pipeline:latest
+    container_name: spark
+    volumes:
+      - ../:/opt/project
+    working_dir: /opt/project
+    command: tail -f /dev/null
   # You can enable flower by adding "--profile flower" option e.g. docker-compose --profile flower up
   # or by explicitly targeted on the command line e.g. docker-compose up flower.
   # See: https://docs.docker.com/compose/profiles/

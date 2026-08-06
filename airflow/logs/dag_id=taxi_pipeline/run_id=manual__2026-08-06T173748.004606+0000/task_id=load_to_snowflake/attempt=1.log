@@ -1,0 +1,52 @@
+[2026-08-06T17:39:48.209+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-08-06T17:39:48.227+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: taxi_pipeline.load_to_snowflake manual__2026-08-06T17:37:48.004606+00:00 [queued]>
+[2026-08-06T17:39:48.236+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: taxi_pipeline.load_to_snowflake manual__2026-08-06T17:37:48.004606+00:00 [queued]>
+[2026-08-06T17:39:48.239+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 4
+[2026-08-06T17:39:48.405+0000] {taskinstance.py:2890} INFO - Executing <Task(BashOperator): load_to_snowflake> on 2026-08-06 17:37:48.004606+00:00
+[2026-08-06T17:39:48.414+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=158) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-08-06T17:39:48.417+0000] {standard_task_runner.py:72} INFO - Started process 160 to run task
+[2026-08-06T17:39:48.417+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'taxi_pipeline', 'load_to_snowflake', 'manual__2026-08-06T17:37:48.004606+00:00', '--job-id', '339', '--raw', '--subdir', 'DAGS_FOLDER/taxi_pipeline_dag.py', '--cfg-path', '/tmp/tmpgs0l8nge']
+[2026-08-06T17:39:48.418+0000] {standard_task_runner.py:105} INFO - Job 339: Subtask load_to_snowflake
+[2026-08-06T17:39:48.463+0000] {task_command.py:467} INFO - Running <TaskInstance: taxi_pipeline.load_to_snowflake manual__2026-08-06T17:37:48.004606+00:00 [running]> on host 30beeb09e17c
+[2026-08-06T17:39:48.532+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='taxi_pipeline' AIRFLOW_CTX_TASK_ID='load_to_snowflake' AIRFLOW_CTX_EXECUTION_DATE='2026-08-06T17:37:48.004606+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-08-06T17:37:48.004606+00:00'
+[2026-08-06T17:39:48.533+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-08-06T17:39:48.534+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-08-06T17:39:48.535+0000] {logging_mixin.py:190} INFO - Current task name:load_to_snowflake state:running start_date:2026-08-06 17:39:48.228676+00:00
+[2026-08-06T17:39:48.535+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline and current dag run status:running
+[2026-08-06T17:39:48.536+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-08-06T17:39:48.537+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-08-06T17:39:48.538+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/project/snowflake/load_gold.py']
+[2026-08-06T17:39:48.551+0000] {subprocess.py:99} INFO - Output:
+[2026-08-06T17:40:15.340+0000] {subprocess.py:106} INFO - Connecting to Snowflake...
+[2026-08-06T17:40:15.341+0000] {subprocess.py:106} INFO - Connected to Snowflake
+[2026-08-06T17:40:15.342+0000] {subprocess.py:106} INFO - Creating Snowflake stage...
+[2026-08-06T17:40:15.343+0000] {subprocess.py:106} INFO - Stage ready
+[2026-08-06T17:40:15.343+0000] {subprocess.py:106} INFO - Uploading Gold parquet files...
+[2026-08-06T17:40:15.344+0000] {subprocess.py:106} INFO - 
+[2026-08-06T17:40:15.344+0000] {subprocess.py:106} INFO - Uploading daily_trip_summary...
+[2026-08-06T17:40:15.345+0000] {subprocess.py:106} INFO - Uploading file: /opt/project/data/gold/daily_trip_summary/year=2009/month=01/part-00000-acf36960-918f-4c87-bf8d-0712c926a41f.c000.snappy.parquet
+[2026-08-06T17:40:15.346+0000] {subprocess.py:106} INFO - Uploading file: /opt/project/data/gold/daily_trip_summary/year=2025/month=06/part-00000-acf36960-918f-4c87-bf8d-0712c926a41f.c000.snappy.parquet
+[2026-08-06T17:40:15.346+0000] {subprocess.py:106} INFO - Uploading file: /opt/project/data/gold/daily_trip_summary/year=2025/month=07/part-00000-acf36960-918f-4c87-bf8d-0712c926a41f.c000.snappy.parquet
+[2026-08-06T17:40:15.347+0000] {subprocess.py:106} INFO - 
+[2026-08-06T17:40:15.347+0000] {subprocess.py:106} INFO - Uploading hourly_demand...
+[2026-08-06T17:40:15.348+0000] {subprocess.py:106} INFO - Uploading file: /opt/project/data/gold/hourly_demand/part-00000-8703a1c9-8afa-438d-bb70-1713ea49d3df-c000.snappy.parquet
+[2026-08-06T17:40:15.348+0000] {subprocess.py:106} INFO - 
+[2026-08-06T17:40:15.349+0000] {subprocess.py:106} INFO - Uploading location_metrics...
+[2026-08-06T17:40:15.350+0000] {subprocess.py:106} INFO - Uploading file: /opt/project/data/gold/location_metrics/part-00000-13957d7d-aee6-4bdc-84b6-d77038ae60b7-c000.snappy.parquet
+[2026-08-06T17:40:15.351+0000] {subprocess.py:106} INFO - 
+[2026-08-06T17:40:15.352+0000] {subprocess.py:106} INFO - All Gold parquet files uploaded
+[2026-08-06T17:40:15.352+0000] {subprocess.py:106} INFO - Running Snowflake load SQL...
+[2026-08-06T17:40:15.353+0000] {subprocess.py:106} INFO - Gold data loaded successfully!
+[2026-08-06T17:40:15.353+0000] {subprocess.py:106} INFO - Snowflake connection closed
+[2026-08-06T17:40:15.524+0000] {subprocess.py:110} INFO - Command exited with return code 0
+[2026-08-06T17:40:15.549+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-08-06T17:40:15.550+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=taxi_pipeline, task_id=load_to_snowflake, run_id=manual__2026-08-06T17:37:48.004606+00:00, execution_date=20260806T173748, start_date=20260806T173948, end_date=20260806T174015
+[2026-08-06T17:40:15.578+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2026-08-06T17:40:15.579+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2026-08-06T17:40:15.580+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline queued_at:2026-08-06 17:37:48.020496+00:00
+[2026-08-06T17:40:15.580+0000] {logging_mixin.py:190} INFO - Task hostname:30beeb09e17c operator:BashOperator
+[2026-08-06T17:40:15.604+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-08-06T17:40:15.619+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-08-06T17:40:15.622+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

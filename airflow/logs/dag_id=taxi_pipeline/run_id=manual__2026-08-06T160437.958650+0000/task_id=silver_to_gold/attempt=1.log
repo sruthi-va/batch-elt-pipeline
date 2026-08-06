@@ -1,0 +1,212 @@
+[2026-08-06T16:06:43.753+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-08-06T16:06:43.808+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: taxi_pipeline.silver_to_gold manual__2026-08-06T16:04:37.958650+00:00 [queued]>
+[2026-08-06T16:06:43.832+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: taxi_pipeline.silver_to_gold manual__2026-08-06T16:04:37.958650+00:00 [queued]>
+[2026-08-06T16:06:43.836+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-08-06T16:06:44.311+0000] {taskinstance.py:2890} INFO - Executing <Task(BashOperator): silver_to_gold> on 2026-08-06 16:04:37.958650+00:00
+[2026-08-06T16:06:44.339+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=186) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-08-06T16:06:44.346+0000] {standard_task_runner.py:72} INFO - Started process 188 to run task
+[2026-08-06T16:06:44.346+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'taxi_pipeline', 'silver_to_gold', 'manual__2026-08-06T16:04:37.958650+00:00', '--job-id', '250', '--raw', '--subdir', 'DAGS_FOLDER/taxi_pipeline_dag.py', '--cfg-path', '/tmp/tmpl65n41mg']
+[2026-08-06T16:06:44.350+0000] {standard_task_runner.py:105} INFO - Job 250: Subtask silver_to_gold
+[2026-08-06T16:06:44.510+0000] {task_command.py:467} INFO - Running <TaskInstance: taxi_pipeline.silver_to_gold manual__2026-08-06T16:04:37.958650+00:00 [running]> on host 673ed38df894
+[2026-08-06T16:06:44.693+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='taxi_pipeline' AIRFLOW_CTX_TASK_ID='silver_to_gold' AIRFLOW_CTX_EXECUTION_DATE='2026-08-06T16:04:37.958650+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-08-06T16:04:37.958650+00:00'
+[2026-08-06T16:06:44.696+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-08-06T16:06:44.698+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-08-06T16:06:44.699+0000] {logging_mixin.py:190} INFO - Current task name:silver_to_gold state:running start_date:2026-08-06 16:06:43.810708+00:00
+[2026-08-06T16:06:44.700+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline and current dag run status:running
+[2026-08-06T16:06:44.700+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-08-06T16:06:44.702+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-08-06T16:06:44.788+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', '\n        docker exec spark         spark-submit /opt/project/transform/silver_to_gold.py\n        ']
+[2026-08-06T16:06:44.826+0000] {subprocess.py:99} INFO - Output:
+[2026-08-06T16:06:45.769+0000] {subprocess.py:106} INFO - WARNING: Using incubator modules: jdk.incubator.vector
+[2026-08-06T16:06:51.015+0000] {subprocess.py:106} INFO - Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+[2026-08-06T16:06:51.039+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SparkContext: Running Spark version 4.0.0
+[2026-08-06T16:06:51.051+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SparkContext: OS info Linux, 5.15.167.4-microsoft-standard-WSL2, amd64
+[2026-08-06T16:06:51.053+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SparkContext: Java version 17.0.15
+[2026-08-06T16:06:51.227+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2026-08-06T16:06:51.339+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO ResourceUtils: ==============================================================
+[2026-08-06T16:06:51.353+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2026-08-06T16:06:51.354+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO ResourceUtils: ==============================================================
+[2026-08-06T16:06:51.356+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SparkContext: Submitted application: SilverToGold
+[2026-08-06T16:06:51.409+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2026-08-06T16:06:51.418+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO ResourceProfile: Limiting resource is cpu
+[2026-08-06T16:06:51.422+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2026-08-06T16:06:51.559+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SecurityManager: Changing view acls to: spark
+[2026-08-06T16:06:51.564+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SecurityManager: Changing modify acls to: spark
+[2026-08-06T16:06:51.568+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SecurityManager: Changing view acls groups to: spark
+[2026-08-06T16:06:51.570+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-08-06T16:06:51.575+0000] {subprocess.py:106} INFO - 26/08/06 16:06:51 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-08-06T16:06:52.209+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO Utils: Successfully started service 'sparkDriver' on port 42797.
+[2026-08-06T16:06:52.290+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO SparkEnv: Registering MapOutputTracker
+[2026-08-06T16:06:52.322+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO SparkEnv: Registering BlockManagerMaster
+[2026-08-06T16:06:52.364+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2026-08-06T16:06:52.366+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2026-08-06T16:06:52.372+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2026-08-06T16:06:52.423+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-4a393ac4-a8d3-4efb-ab79-af3d5922993b
+[2026-08-06T16:06:52.495+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO SparkEnv: Registering OutputCommitCoordinator
+[2026-08-06T16:06:52.803+0000] {subprocess.py:106} INFO - 26/08/06 16:06:52 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[2026-08-06T16:06:53.008+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2026-08-06T16:06:53.125+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO SecurityManager: Changing view acls to: spark
+[2026-08-06T16:06:53.132+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO SecurityManager: Changing modify acls to: spark
+[2026-08-06T16:06:53.133+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO SecurityManager: Changing view acls groups to: spark
+[2026-08-06T16:06:53.135+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-08-06T16:06:53.136+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-08-06T16:06:53.372+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO Executor: Starting executor ID driver on host 3637e63650c7
+[2026-08-06T16:06:53.374+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO Executor: OS info Linux, 5.15.167.4-microsoft-standard-WSL2, amd64
+[2026-08-06T16:06:53.376+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO Executor: Java version 17.0.15
+[2026-08-06T16:06:53.396+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[2026-08-06T16:06:53.400+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@628221a1 for default.
+[2026-08-06T16:06:53.449+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 38687.
+[2026-08-06T16:06:53.464+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO NettyBlockTransferService: Server created on 3637e63650c7:38687
+[2026-08-06T16:06:53.467+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2026-08-06T16:06:53.487+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 3637e63650c7, 38687, None)
+[2026-08-06T16:06:53.502+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO BlockManagerMasterEndpoint: Registering block manager 3637e63650c7:38687 with 434.4 MiB RAM, BlockManagerId(driver, 3637e63650c7, 38687, None)
+[2026-08-06T16:06:53.509+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 3637e63650c7, 38687, None)
+[2026-08-06T16:06:53.513+0000] {subprocess.py:106} INFO - 26/08/06 16:06:53 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 3637e63650c7, 38687, None)
+[2026-08-06T16:06:58.200+0000] {subprocess.py:106} INFO - Starting Silver to Gold transformation...
+[2026-08-06T16:07:04.688+0000] {subprocess.py:106} INFO - Silver schema:
+[2026-08-06T16:07:04.722+0000] {subprocess.py:106} INFO - root
+[2026-08-06T16:07:04.724+0000] {subprocess.py:106} INFO -  |-- vendor_id: integer (nullable = true)
+[2026-08-06T16:07:04.732+0000] {subprocess.py:106} INFO -  |-- pickup_datetime: timestamp_ntz (nullable = true)
+[2026-08-06T16:07:04.734+0000] {subprocess.py:106} INFO -  |-- dropoff_datetime: timestamp_ntz (nullable = true)
+[2026-08-06T16:07:04.737+0000] {subprocess.py:106} INFO -  |-- passenger_count: integer (nullable = true)
+[2026-08-06T16:07:04.742+0000] {subprocess.py:106} INFO -  |-- trip_distance: double (nullable = true)
+[2026-08-06T16:07:04.745+0000] {subprocess.py:106} INFO -  |-- rate_code_id: integer (nullable = true)
+[2026-08-06T16:07:04.748+0000] {subprocess.py:106} INFO -  |-- store_and_fwd_flag: string (nullable = true)
+[2026-08-06T16:07:04.751+0000] {subprocess.py:106} INFO -  |-- pickup_location_id: integer (nullable = true)
+[2026-08-06T16:07:04.753+0000] {subprocess.py:106} INFO -  |-- dropoff_location_id: integer (nullable = true)
+[2026-08-06T16:07:04.754+0000] {subprocess.py:106} INFO -  |-- payment_type: integer (nullable = true)
+[2026-08-06T16:07:04.756+0000] {subprocess.py:106} INFO -  |-- fare_amount: double (nullable = true)
+[2026-08-06T16:07:04.758+0000] {subprocess.py:106} INFO -  |-- extra: double (nullable = true)
+[2026-08-06T16:07:04.759+0000] {subprocess.py:106} INFO -  |-- mta_tax: double (nullable = true)
+[2026-08-06T16:07:04.761+0000] {subprocess.py:106} INFO -  |-- tip_amount: double (nullable = true)
+[2026-08-06T16:07:04.762+0000] {subprocess.py:106} INFO -  |-- tolls_amount: double (nullable = true)
+[2026-08-06T16:07:04.763+0000] {subprocess.py:106} INFO -  |-- improvement_surcharge: double (nullable = true)
+[2026-08-06T16:07:04.764+0000] {subprocess.py:106} INFO -  |-- total_amount: double (nullable = true)
+[2026-08-06T16:07:04.766+0000] {subprocess.py:106} INFO -  |-- congestion_surcharge: double (nullable = true)
+[2026-08-06T16:07:04.769+0000] {subprocess.py:106} INFO -  |-- airport_fee: double (nullable = true)
+[2026-08-06T16:07:04.771+0000] {subprocess.py:106} INFO -  |-- cbd_congestion_fee: double (nullable = true)
+[2026-08-06T16:07:04.773+0000] {subprocess.py:106} INFO -  |-- trip_duration_minutes: double (nullable = true)
+[2026-08-06T16:07:04.774+0000] {subprocess.py:106} INFO -  |-- average_speed_mph: double (nullable = true)
+[2026-08-06T16:07:04.776+0000] {subprocess.py:106} INFO -  |-- pickup_hour: integer (nullable = true)
+[2026-08-06T16:07:04.778+0000] {subprocess.py:106} INFO -  |-- pickup_day_of_week: integer (nullable = true)
+[2026-08-06T16:07:04.780+0000] {subprocess.py:106} INFO -  |-- is_weekend: boolean (nullable = true)
+[2026-08-06T16:07:04.783+0000] {subprocess.py:106} INFO -  |-- trip_distance_category: string (nullable = true)
+[2026-08-06T16:07:04.785+0000] {subprocess.py:106} INFO - 
+[2026-08-06T16:07:05.641+0000] {subprocess.py:106} INFO - Daily Summary
+[2026-08-06T16:07:15.764+0000] {subprocess.py:106} INFO - +----------+-----------+-----------------+-------------------------+---------------+--------------+-------------+-------------+
+[2026-08-06T16:07:15.766+0000] {subprocess.py:106} INFO - |      date|total_trips|avg_trip_distance|avg_trip_duration_minutes|avg_fare_amount|avg_tip_amount|total_revenue|avg_speed_mph|
+[2026-08-06T16:07:15.772+0000] {subprocess.py:106} INFO - +----------+-----------+-----------------+-------------------------+---------------+--------------+-------------+-------------+
+[2026-08-06T16:07:15.778+0000] {subprocess.py:106} INFO - |2025-07-15|     133444|             9.06|                     17.8|          18.87|          3.08|   3714836.24|        29.27|
+[2026-08-06T16:07:15.782+0000] {subprocess.py:106} INFO - |2025-07-21|     111317|             5.95|                     17.3|          19.17|          2.95|   3111276.65|        19.34|
+[2026-08-06T16:07:15.785+0000] {subprocess.py:106} INFO - |2025-07-16|     144325|             6.04|                    17.39|          18.19|          2.89|    3871094.1|        18.77|
+[2026-08-06T16:07:15.787+0000] {subprocess.py:106} INFO - |2025-07-06|      96065|             5.74|                    16.52|          20.31|          2.78|   2734715.97|        16.81|
+[2026-08-06T16:07:15.789+0000] {subprocess.py:106} INFO - |2025-07-08|     131924|             4.66|                    16.63|          18.04|           2.8|   3503595.53|         15.0|
+[2026-08-06T16:07:15.790+0000] {subprocess.py:106} INFO - +----------+-----------+-----------------+-------------------------+---------------+--------------+-------------+-------------+
+[2026-08-06T16:07:15.792+0000] {subprocess.py:106} INFO - only showing top 5 rows
+[2026-08-06T16:07:15.947+0000] {subprocess.py:106} INFO - Hourly Demand
+[2026-08-06T16:07:18.775+0000] {subprocess.py:106} INFO - +-----------+----------+-----------+--------+------------+------------+
+[2026-08-06T16:07:18.776+0000] {subprocess.py:106} INFO - |pickup_hour|is_weekend|total_trips|avg_fare|avg_distance|avg_duration|
+[2026-08-06T16:07:18.778+0000] {subprocess.py:106} INFO - +-----------+----------+-----------+--------+------------+------------+
+[2026-08-06T16:07:18.780+0000] {subprocess.py:106} INFO - |         17|      true|      58401|   19.06|        6.42|       17.53|
+[2026-08-06T16:07:18.781+0000] {subprocess.py:106} INFO - |          1|     false|      36280|   21.94|         6.4|       15.04|
+[2026-08-06T16:07:18.783+0000] {subprocess.py:106} INFO - |          6|      true|      10541|   21.58|        10.7|       14.61|
+[2026-08-06T16:07:18.784+0000] {subprocess.py:106} INFO - |          3|      true|      23410|   17.78|       10.03|        13.8|
+[2026-08-06T16:07:18.786+0000] {subprocess.py:106} INFO - |         18|      true|      59688|   18.48|        5.52|        16.9|
+[2026-08-06T16:07:18.788+0000] {subprocess.py:106} INFO - +-----------+----------+-----------+--------+------------+------------+
+[2026-08-06T16:07:18.789+0000] {subprocess.py:106} INFO - only showing top 5 rows
+[2026-08-06T16:07:18.933+0000] {subprocess.py:106} INFO - Location Metrics
+[2026-08-06T16:07:22.333+0000] {subprocess.py:106} INFO - +------------------+-----------+-------------+--------+--------------+-----------------+
+[2026-08-06T16:07:22.335+0000] {subprocess.py:106} INFO - |pickup_location_id|total_trips|total_revenue|avg_fare|avg_tip_amount|avg_trip_distance|
+[2026-08-06T16:07:22.337+0000] {subprocess.py:106} INFO - +------------------+-----------+-------------+--------+--------------+-----------------+
+[2026-08-06T16:07:22.339+0000] {subprocess.py:106} INFO - |               148|      48620|   1186097.98|   16.95|          1.94|             3.62|
+[2026-08-06T16:07:22.341+0000] {subprocess.py:106} INFO - |               243|       4121|    117527.27|    23.7|          0.42|             6.43|
+[2026-08-06T16:07:22.342+0000] {subprocess.py:106} INFO - |                31|        131|      4531.79|   28.77|          1.21|             6.75|
+[2026-08-06T16:07:22.344+0000] {subprocess.py:106} INFO - |               137|      43579|     957849.4|   14.58|          1.82|            12.31|
+[2026-08-06T16:07:22.347+0000] {subprocess.py:106} INFO - |                85|       1961|      55033.6|   25.19|           0.1|              5.3|
+[2026-08-06T16:07:22.349+0000] {subprocess.py:106} INFO - +------------------+-----------+-------------+--------+--------------+-----------------+
+[2026-08-06T16:07:22.351+0000] {subprocess.py:106} INFO - only showing top 5 rows
+[2026-08-06T16:07:22.466+0000] {subprocess.py:106} INFO - Traceback (most recent call last):
+[2026-08-06T16:07:22.467+0000] {subprocess.py:106} INFO -   File "/opt/project/transform/silver_to_gold.py", line 148, in <module>
+[2026-08-06T16:07:22.473+0000] {subprocess.py:106} INFO -     .parquet(
+[2026-08-06T16:07:22.475+0000] {subprocess.py:106} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/readwriter.py", line 2003, in parquet
+[2026-08-06T16:07:22.478+0000] {subprocess.py:106} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.9-src.zip/py4j/java_gateway.py", line 1362, in __call__
+[2026-08-06T16:07:22.480+0000] {subprocess.py:106} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/errors/exceptions/captured.py", line 288, in deco
+[2026-08-06T16:07:22.494+0000] {subprocess.py:106} INFO - pyspark.errors.exceptions.captured.AnalysisException: Partition column `year` not found in schema struct<date:string,total_trips:bigint,avg_trip_distance:double,avg_trip_duration_minutes:double,avg_fare_amount:double,avg_tip_amount:double,total_revenue:double,avg_speed_mph:double>.
+[2026-08-06T16:07:23.101+0000] {subprocess.py:110} INFO - Command exited with return code 1
+[2026-08-06T16:07:23.126+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-08-06T16:07:23.150+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2026-08-06T16:07:23.152+0000] {logging_mixin.py:190} INFO - Task start:2026-08-06 16:06:43.810708+00:00 end:2026-08-06 16:07:23.148522+00:00 duration:39.337814
+[2026-08-06T16:07:23.154+0000] {logging_mixin.py:190} INFO - Task:<Task(BashOperator): silver_to_gold> dag:<DAG: taxi_pipeline> dagrun:<DagRun taxi_pipeline @ 2026-08-06 16:04:37.958650+00:00: manual__2026-08-06T16:04:37.958650+00:00, state:running, queued_at: 2026-08-06 16:04:38.011577+00:00. externally triggered: True>
+[2026-08-06T16:07:23.155+0000] {logging_mixin.py:190} INFO - Failure caused by Bash command failed. The command returned a non-zero exit code 1.
+[2026-08-06T16:07:23.156+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=taxi_pipeline, task_id=silver_to_gold, run_id=manual__2026-08-06T16:04:37.958650+00:00, execution_date=20260806T160437, start_date=20260806T160643, end_date=20260806T160723
+[2026-08-06T16:07:23.255+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-08-06T16:07:23.257+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 250 for task silver_to_gold (Bash command failed. The command returned a non-zero exit code 1.; 188)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-08-06T16:07:23.304+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-08-06T16:07:23.485+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-08-06T16:07:23.495+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

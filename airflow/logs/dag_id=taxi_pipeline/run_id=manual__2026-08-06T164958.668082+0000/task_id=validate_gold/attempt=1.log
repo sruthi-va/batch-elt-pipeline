@@ -1,0 +1,83 @@
+[2026-08-06T16:51:42.247+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-08-06T16:51:42.271+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: taxi_pipeline.validate_gold manual__2026-08-06T16:49:58.668082+00:00 [queued]>
+[2026-08-06T16:51:42.282+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: taxi_pipeline.validate_gold manual__2026-08-06T16:49:58.668082+00:00 [queued]>
+[2026-08-06T16:51:42.284+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-08-06T16:51:42.458+0000] {taskinstance.py:2890} INFO - Executing <Task(BashOperator): validate_gold> on 2026-08-06 16:49:58.668082+00:00
+[2026-08-06T16:51:42.469+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=147) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-08-06T16:51:42.471+0000] {standard_task_runner.py:72} INFO - Started process 156 to run task
+[2026-08-06T16:51:42.472+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'taxi_pipeline', 'validate_gold', 'manual__2026-08-06T16:49:58.668082+00:00', '--job-id', '290', '--raw', '--subdir', 'DAGS_FOLDER/taxi_pipeline_dag.py', '--cfg-path', '/tmp/tmpw3jyzl_j']
+[2026-08-06T16:51:42.473+0000] {standard_task_runner.py:105} INFO - Job 290: Subtask validate_gold
+[2026-08-06T16:51:42.524+0000] {task_command.py:467} INFO - Running <TaskInstance: taxi_pipeline.validate_gold manual__2026-08-06T16:49:58.668082+00:00 [running]> on host 83f263088631
+[2026-08-06T16:51:42.608+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='taxi_pipeline' AIRFLOW_CTX_TASK_ID='validate_gold' AIRFLOW_CTX_EXECUTION_DATE='2026-08-06T16:49:58.668082+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-08-06T16:49:58.668082+00:00'
+[2026-08-06T16:51:42.610+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-08-06T16:51:42.610+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-08-06T16:51:42.611+0000] {logging_mixin.py:190} INFO - Current task name:validate_gold state:running start_date:2026-08-06 16:51:42.272526+00:00
+[2026-08-06T16:51:42.612+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline and current dag run status:running
+[2026-08-06T16:51:42.612+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-08-06T16:51:42.613+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-08-06T16:51:42.615+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', '\n        docker exec spark spark-submit /opt/project/validation/validate_gold.py\n        ']
+[2026-08-06T16:51:42.630+0000] {subprocess.py:99} INFO - Output:
+[2026-08-06T16:51:43.030+0000] {subprocess.py:106} INFO - WARNING: Using incubator modules: jdk.incubator.vector
+[2026-08-06T16:51:45.156+0000] {subprocess.py:106} INFO - Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+[2026-08-06T16:51:45.166+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkContext: Running Spark version 4.0.0
+[2026-08-06T16:51:45.169+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkContext: OS info Linux, 5.15.167.4-microsoft-standard-WSL2, amd64
+[2026-08-06T16:51:45.171+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkContext: Java version 17.0.15
+[2026-08-06T16:51:45.249+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2026-08-06T16:51:45.302+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO ResourceUtils: ==============================================================
+[2026-08-06T16:51:45.303+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2026-08-06T16:51:45.304+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO ResourceUtils: ==============================================================
+[2026-08-06T16:51:45.305+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkContext: Submitted application: GoldDataQualityChecks
+[2026-08-06T16:51:45.330+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2026-08-06T16:51:45.333+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO ResourceProfile: Limiting resource is cpu
+[2026-08-06T16:51:45.334+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2026-08-06T16:51:45.379+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SecurityManager: Changing view acls to: spark
+[2026-08-06T16:51:45.381+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SecurityManager: Changing modify acls to: spark
+[2026-08-06T16:51:45.382+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SecurityManager: Changing view acls groups to: spark
+[2026-08-06T16:51:45.384+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-08-06T16:51:45.388+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-08-06T16:51:45.607+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO Utils: Successfully started service 'sparkDriver' on port 39243.
+[2026-08-06T16:51:45.645+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkEnv: Registering MapOutputTracker
+[2026-08-06T16:51:45.662+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkEnv: Registering BlockManagerMaster
+[2026-08-06T16:51:45.681+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2026-08-06T16:51:45.683+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2026-08-06T16:51:45.686+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2026-08-06T16:51:45.707+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-f9b58199-a686-4ffe-a282-ee25ee11c2c7
+[2026-08-06T16:51:45.736+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO SparkEnv: Registering OutputCommitCoordinator
+[2026-08-06T16:51:45.904+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[2026-08-06T16:51:45.981+0000] {subprocess.py:106} INFO - 26/08/06 16:51:45 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2026-08-06T16:51:46.035+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO SecurityManager: Changing view acls to: spark
+[2026-08-06T16:51:46.036+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO SecurityManager: Changing modify acls to: spark
+[2026-08-06T16:51:46.037+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO SecurityManager: Changing view acls groups to: spark
+[2026-08-06T16:51:46.038+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO SecurityManager: Changing modify acls groups to: spark
+[2026-08-06T16:51:46.039+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY; RPC SSL disabled
+[2026-08-06T16:51:46.165+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO Executor: Starting executor ID driver on host 545205c55519
+[2026-08-06T16:51:46.166+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO Executor: OS info Linux, 5.15.167.4-microsoft-standard-WSL2, amd64
+[2026-08-06T16:51:46.167+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO Executor: Java version 17.0.15
+[2026-08-06T16:51:46.181+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[2026-08-06T16:51:46.183+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@4d67e159 for default.
+[2026-08-06T16:51:46.205+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 36455.
+[2026-08-06T16:51:46.213+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO NettyBlockTransferService: Server created on 545205c55519:36455
+[2026-08-06T16:51:46.216+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2026-08-06T16:51:46.239+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 545205c55519, 36455, None)
+[2026-08-06T16:51:46.248+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO BlockManagerMasterEndpoint: Registering block manager 545205c55519:36455 with 434.4 MiB RAM, BlockManagerId(driver, 545205c55519, 36455, None)
+[2026-08-06T16:51:46.252+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 545205c55519, 36455, None)
+[2026-08-06T16:51:46.253+0000] {subprocess.py:106} INFO - 26/08/06 16:51:46 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 545205c55519, 36455, None)
+[2026-08-06T16:51:48.204+0000] {subprocess.py:106} INFO - Starting Gold data quality checks...
+[2026-08-06T16:51:53.520+0000] {subprocess.py:106} INFO - Daily row count check passed
+[2026-08-06T16:51:53.970+0000] {subprocess.py:106} INFO -  Revenue validation passed
+[2026-08-06T16:51:54.325+0000] {subprocess.py:106} INFO - Duration validation passed
+[2026-08-06T16:51:54.675+0000] {subprocess.py:106} INFO - Distance validation passed
+[2026-08-06T16:51:54.678+0000] {subprocess.py:106} INFO - daily_trip_summary schema check passed
+[2026-08-06T16:51:54.679+0000] {subprocess.py:106} INFO - All Gold validation checks passed!
+[2026-08-06T16:51:54.998+0000] {subprocess.py:110} INFO - Command exited with return code 0
+[2026-08-06T16:51:55.028+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-08-06T16:51:55.029+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=taxi_pipeline, task_id=validate_gold, run_id=manual__2026-08-06T16:49:58.668082+00:00, execution_date=20260806T164958, start_date=20260806T165142, end_date=20260806T165155
+[2026-08-06T16:51:55.060+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2026-08-06T16:51:55.061+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2026-08-06T16:51:55.061+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline queued_at:2026-08-06 16:49:58.695696+00:00
+[2026-08-06T16:51:55.062+0000] {logging_mixin.py:190} INFO - Task hostname:83f263088631 operator:BashOperator
+[2026-08-06T16:51:55.077+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-08-06T16:51:55.101+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-08-06T16:51:55.104+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

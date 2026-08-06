@@ -1,0 +1,141 @@
+[2026-08-06T17:09:08.017+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-08-06T17:09:08.045+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: taxi_pipeline.load_to_snowflake manual__2026-08-06T17:06:34.820630+00:00 [queued]>
+[2026-08-06T17:09:08.060+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: taxi_pipeline.load_to_snowflake manual__2026-08-06T17:06:34.820630+00:00 [queued]>
+[2026-08-06T17:09:08.063+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 4
+[2026-08-06T17:09:08.258+0000] {taskinstance.py:2890} INFO - Executing <Task(BashOperator): load_to_snowflake> on 2026-08-06 17:06:34.820630+00:00
+[2026-08-06T17:09:08.269+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=170) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-08-06T17:09:08.271+0000] {standard_task_runner.py:72} INFO - Started process 172 to run task
+[2026-08-06T17:09:08.272+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'taxi_pipeline', 'load_to_snowflake', 'manual__2026-08-06T17:06:34.820630+00:00', '--job-id', '307', '--raw', '--subdir', 'DAGS_FOLDER/taxi_pipeline_dag.py', '--cfg-path', '/tmp/tmpn09lljvc']
+[2026-08-06T17:09:08.274+0000] {standard_task_runner.py:105} INFO - Job 307: Subtask load_to_snowflake
+[2026-08-06T17:09:08.345+0000] {task_command.py:467} INFO - Running <TaskInstance: taxi_pipeline.load_to_snowflake manual__2026-08-06T17:06:34.820630+00:00 [running]> on host 7f6200aff2a1
+[2026-08-06T17:09:08.445+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='taxi_pipeline' AIRFLOW_CTX_TASK_ID='load_to_snowflake' AIRFLOW_CTX_EXECUTION_DATE='2026-08-06T17:06:34.820630+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-08-06T17:06:34.820630+00:00'
+[2026-08-06T17:09:08.447+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-08-06T17:09:08.447+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-08-06T17:09:08.448+0000] {logging_mixin.py:190} INFO - Current task name:load_to_snowflake state:running start_date:2026-08-06 17:09:08.047202+00:00
+[2026-08-06T17:09:08.449+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline and current dag run status:running
+[2026-08-06T17:09:08.450+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-08-06T17:09:08.451+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-08-06T17:09:08.453+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/project/snowflake/load_gold.py']
+[2026-08-06T17:09:08.471+0000] {subprocess.py:99} INFO - Output:
+[2026-08-06T17:09:11.838+0000] {subprocess.py:106} INFO - Traceback (most recent call last):
+[2026-08-06T17:09:11.839+0000] {subprocess.py:106} INFO -   File "/opt/project/snowflake/load_gold.py", line 7, in <module>
+[2026-08-06T17:09:11.841+0000] {subprocess.py:106} INFO -     conn = snowflake.connector.connect(
+[2026-08-06T17:09:11.841+0000] {subprocess.py:106} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-08-06T17:09:11.841+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/__init__.py", line 55, in Connect
+[2026-08-06T17:09:11.842+0000] {subprocess.py:106} INFO -     return SnowflakeConnection(**kwargs)
+[2026-08-06T17:09:11.843+0000] {subprocess.py:106} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-08-06T17:09:11.843+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/connection.py", line 467, in __init__
+[2026-08-06T17:09:11.844+0000] {subprocess.py:106} INFO -     self.connect(**kwargs)
+[2026-08-06T17:09:11.844+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/connection.py", line 786, in connect
+[2026-08-06T17:09:11.845+0000] {subprocess.py:106} INFO -     self.__open_connection()
+[2026-08-06T17:09:11.846+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/connection.py", line 1116, in __open_connection
+[2026-08-06T17:09:11.847+0000] {subprocess.py:106} INFO -     self.authenticate_with_retry(self.auth_class)
+[2026-08-06T17:09:11.848+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/connection.py", line 1404, in authenticate_with_retry
+[2026-08-06T17:09:11.849+0000] {subprocess.py:106} INFO -     self._authenticate(auth_instance)
+[2026-08-06T17:09:11.849+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/connection.py", line 1432, in _authenticate
+[2026-08-06T17:09:11.851+0000] {subprocess.py:106} INFO -     auth.authenticate(
+[2026-08-06T17:09:11.852+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/auth/_auth.py", line 265, in authenticate
+[2026-08-06T17:09:11.852+0000] {subprocess.py:106} INFO -     ret = self._rest._post_request(
+[2026-08-06T17:09:11.853+0000] {subprocess.py:106} INFO -           ^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-08-06T17:09:11.854+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/network.py", line 749, in _post_request
+[2026-08-06T17:09:11.854+0000] {subprocess.py:106} INFO -     ret = self.fetch(
+[2026-08-06T17:09:11.855+0000] {subprocess.py:106} INFO -           ^^^^^^^^^^^
+[2026-08-06T17:09:11.856+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/network.py", line 864, in fetch
+[2026-08-06T17:09:11.856+0000] {subprocess.py:106} INFO -     ret = self._request_exec_wrapper(
+[2026-08-06T17:09:11.857+0000] {subprocess.py:106} INFO -           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-08-06T17:09:11.858+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/network.py", line 992, in _request_exec_wrapper
+[2026-08-06T17:09:11.859+0000] {subprocess.py:106} INFO -     raise e
+[2026-08-06T17:09:11.859+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/network.py", line 914, in _request_exec_wrapper
+[2026-08-06T17:09:11.860+0000] {subprocess.py:106} INFO -     return_object = self._request_exec(
+[2026-08-06T17:09:11.861+0000] {subprocess.py:106} INFO -                     ^^^^^^^^^^^^^^^^^^^
+[2026-08-06T17:09:11.861+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/network.py", line 1191, in _request_exec
+[2026-08-06T17:09:11.862+0000] {subprocess.py:106} INFO -     raise err
+[2026-08-06T17:09:11.863+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/network.py", line 1140, in _request_exec
+[2026-08-06T17:09:11.864+0000] {subprocess.py:106} INFO -     raise_failed_request_error(
+[2026-08-06T17:09:11.864+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/network.py", line 232, in raise_failed_request_error
+[2026-08-06T17:09:11.865+0000] {subprocess.py:106} INFO -     Error.errorhandler_wrapper(
+[2026-08-06T17:09:11.866+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/errors.py", line 283, in errorhandler_wrapper
+[2026-08-06T17:09:11.867+0000] {subprocess.py:106} INFO -     handed_over = Error.hand_to_other_handler(
+[2026-08-06T17:09:11.868+0000] {subprocess.py:106} INFO -                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-08-06T17:09:11.869+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/errors.py", line 341, in hand_to_other_handler
+[2026-08-06T17:09:11.869+0000] {subprocess.py:106} INFO -     connection.errorhandler(connection, cursor, error_class, error_value)
+[2026-08-06T17:09:11.870+0000] {subprocess.py:106} INFO -   File "/home/***/.local/lib/python3.12/site-packages/snowflake/connector/errors.py", line 214, in default_errorhandler
+[2026-08-06T17:09:11.871+0000] {subprocess.py:106} INFO -     raise error_class(
+[2026-08-06T17:09:11.871+0000] {subprocess.py:106} INFO - snowflake.connector.errors.InterfaceError: 250003 (08001): 404 Not Found: post https://RKWBBQK-SBB67166SVADAKUP.us-west-2.snowflakecomputing.com:443/session/v1/login-request?request_id=ee8eb5fe-ec62-4591-9b6b-f7ceceeacf0e&databaseName=TAXI_ANALYTICS&schemaName=GOLD&warehouse=COMPUTE_WH&request_guid=aa0ef263-8e53-4df3-af38-c1584192be45
+[2026-08-06T17:09:12.022+0000] {subprocess.py:110} INFO - Command exited with return code 1
+[2026-08-06T17:09:12.032+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-08-06T17:09:12.041+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2026-08-06T17:09:12.042+0000] {logging_mixin.py:190} INFO - Task start:2026-08-06 17:09:08.047202+00:00 end:2026-08-06 17:09:12.040921+00:00 duration:3.993719
+[2026-08-06T17:09:12.043+0000] {logging_mixin.py:190} INFO - Task:<Task(BashOperator): load_to_snowflake> dag:<DAG: taxi_pipeline> dagrun:<DagRun taxi_pipeline @ 2026-08-06 17:06:34.820630+00:00: manual__2026-08-06T17:06:34.820630+00:00, state:running, queued_at: 2026-08-06 17:06:34.839635+00:00. externally triggered: True>
+[2026-08-06T17:09:12.043+0000] {logging_mixin.py:190} INFO - Failure caused by Bash command failed. The command returned a non-zero exit code 1.
+[2026-08-06T17:09:12.044+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=taxi_pipeline, task_id=load_to_snowflake, run_id=manual__2026-08-06T17:06:34.820630+00:00, execution_date=20260806T170634, start_date=20260806T170908, end_date=20260806T170912
+[2026-08-06T17:09:12.083+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-08-06T17:09:12.084+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 307 for task load_to_snowflake (Bash command failed. The command returned a non-zero exit code 1.; 172)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 276, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-08-06T17:09:12.115+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-08-06T17:09:12.129+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

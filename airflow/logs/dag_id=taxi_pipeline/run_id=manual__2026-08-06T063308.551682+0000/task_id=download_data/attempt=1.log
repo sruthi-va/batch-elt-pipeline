@@ -1,0 +1,34 @@
+[2026-08-06T06:33:15.536+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-08-06T06:33:15.578+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: taxi_pipeline.download_data manual__2026-08-06T06:33:08.551682+00:00 [queued]>
+[2026-08-06T06:33:15.597+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: taxi_pipeline.download_data manual__2026-08-06T06:33:08.551682+00:00 [queued]>
+[2026-08-06T06:33:15.599+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-08-06T06:33:15.640+0000] {taskinstance.py:2890} INFO - Executing <Task(BashOperator): download_data> on 2026-08-06 06:33:08.551682+00:00
+[2026-08-06T06:33:15.662+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=107) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-08-06T06:33:15.670+0000] {standard_task_runner.py:72} INFO - Started process 109 to run task
+[2026-08-06T06:33:15.676+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'taxi_pipeline', 'download_data', 'manual__2026-08-06T06:33:08.551682+00:00', '--job-id', '187', '--raw', '--subdir', 'DAGS_FOLDER/taxi_pipeline_dag.py', '--cfg-path', '/tmp/tmpa892l5ws']
+[2026-08-06T06:33:15.678+0000] {standard_task_runner.py:105} INFO - Job 187: Subtask download_data
+[2026-08-06T06:33:17.340+0000] {task_command.py:467} INFO - Running <TaskInstance: taxi_pipeline.download_data manual__2026-08-06T06:33:08.551682+00:00 [running]> on host 3a6617f94efb
+[2026-08-06T06:33:17.574+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='taxi_pipeline' AIRFLOW_CTX_TASK_ID='download_data' AIRFLOW_CTX_EXECUTION_DATE='2026-08-06T06:33:08.551682+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-08-06T06:33:08.551682+00:00'
+[2026-08-06T06:33:17.577+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-08-06T06:33:17.578+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-08-06T06:33:17.579+0000] {logging_mixin.py:190} INFO - Current task name:download_data state:running start_date:2026-08-06 06:33:15.580276+00:00
+[2026-08-06T06:33:17.580+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline and current dag run status:running
+[2026-08-06T06:33:17.582+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-08-06T06:33:17.584+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-08-06T06:33:17.587+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/project/ingestion/download_taxi_data.py']
+[2026-08-06T06:33:17.649+0000] {subprocess.py:99} INFO - Output:
+[2026-08-06T06:33:19.128+0000] {subprocess.py:106} INFO - 2026-08-06 06:33:19,127 - INFO - Starting download...
+[2026-08-06T06:33:19.389+0000] {subprocess.py:106} INFO - 2026-08-06 06:33:19,388 - INFO - Downloading NYC Taxi July 2025 data...
+[2026-08-06T06:34:21.125+0000] {subprocess.py:106} INFO - 2026-08-06 06:34:21,124 - INFO - Download complete! Saved to data/raw/yellow_tripdata_2025-07.parquet
+[2026-08-06T06:34:21.220+0000] {subprocess.py:110} INFO - Command exited with return code 0
+[2026-08-06T06:34:21.323+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-08-06T06:34:21.326+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=taxi_pipeline, task_id=download_data, run_id=manual__2026-08-06T06:33:08.551682+00:00, execution_date=20260806T063308, start_date=20260806T063315, end_date=20260806T063421
+[2026-08-06T06:34:21.433+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2026-08-06T06:34:21.434+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2026-08-06T06:34:21.438+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline queued_at:2026-08-06 06:33:08.599264+00:00
+[2026-08-06T06:34:21.440+0000] {logging_mixin.py:190} INFO - Task hostname:3a6617f94efb operator:BashOperator
+[2026-08-06T06:34:21.523+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-08-06T06:34:21.612+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-08-06T06:34:21.617+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

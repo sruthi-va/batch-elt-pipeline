@@ -1,0 +1,35 @@
+[2026-08-06T16:50:38.655+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-08-06T16:50:38.672+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: taxi_pipeline.upload_to_bronze manual__2026-08-06T16:49:58.668082+00:00 [queued]>
+[2026-08-06T16:50:38.686+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: taxi_pipeline.upload_to_bronze manual__2026-08-06T16:49:58.668082+00:00 [queued]>
+[2026-08-06T16:50:38.687+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-08-06T16:50:38.815+0000] {taskinstance.py:2890} INFO - Executing <Task(BashOperator): upload_to_bronze> on 2026-08-06 16:49:58.668082+00:00
+[2026-08-06T16:50:38.822+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=105) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-08-06T16:50:38.824+0000] {standard_task_runner.py:72} INFO - Started process 107 to run task
+[2026-08-06T16:50:38.823+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'taxi_pipeline', 'upload_to_bronze', 'manual__2026-08-06T16:49:58.668082+00:00', '--job-id', '287', '--raw', '--subdir', 'DAGS_FOLDER/taxi_pipeline_dag.py', '--cfg-path', '/tmp/tmp3iqmd9u_']
+[2026-08-06T16:50:38.824+0000] {standard_task_runner.py:105} INFO - Job 287: Subtask upload_to_bronze
+[2026-08-06T16:50:38.871+0000] {task_command.py:467} INFO - Running <TaskInstance: taxi_pipeline.upload_to_bronze manual__2026-08-06T16:49:58.668082+00:00 [running]> on host 83f263088631
+[2026-08-06T16:50:38.932+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='taxi_pipeline' AIRFLOW_CTX_TASK_ID='upload_to_bronze' AIRFLOW_CTX_EXECUTION_DATE='2026-08-06T16:49:58.668082+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-08-06T16:49:58.668082+00:00'
+[2026-08-06T16:50:38.934+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-08-06T16:50:38.934+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-08-06T16:50:38.935+0000] {logging_mixin.py:190} INFO - Current task name:upload_to_bronze state:running start_date:2026-08-06 16:50:38.679716+00:00
+[2026-08-06T16:50:38.935+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline and current dag run status:running
+[2026-08-06T16:50:38.935+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-08-06T16:50:38.936+0000] {subprocess.py:78} INFO - Tmp dir root location: /tmp
+[2026-08-06T16:50:38.937+0000] {subprocess.py:88} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/project/ingestion/upload_to_s3.py']
+[2026-08-06T16:50:38.949+0000] {subprocess.py:99} INFO - Output:
+[2026-08-06T16:50:39.810+0000] {subprocess.py:106} INFO - 2026-08-06 16:50:39,809 - INFO - Uploading NYC Taxi data...
+[2026-08-06T16:50:39.811+0000] {subprocess.py:106} INFO - 2026-08-06 16:50:39,810 - ERROR - File does not exist
+[2026-08-06T16:50:39.812+0000] {subprocess.py:106} INFO - Starting Bronze upload...
+[2026-08-06T16:50:39.812+0000] {subprocess.py:106} INFO - Finished Bronze upload successfully.
+[2026-08-06T16:50:39.935+0000] {subprocess.py:110} INFO - Command exited with return code 0
+[2026-08-06T16:50:39.957+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-08-06T16:50:39.958+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=taxi_pipeline, task_id=upload_to_bronze, run_id=manual__2026-08-06T16:49:58.668082+00:00, execution_date=20260806T164958, start_date=20260806T165038, end_date=20260806T165039
+[2026-08-06T16:50:39.980+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2026-08-06T16:50:39.982+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2026-08-06T16:50:39.983+0000] {logging_mixin.py:190} INFO - Dag name:taxi_pipeline queued_at:2026-08-06 16:49:58.695696+00:00
+[2026-08-06T16:50:39.983+0000] {logging_mixin.py:190} INFO - Task hostname:83f263088631 operator:BashOperator
+[2026-08-06T16:50:40.003+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-08-06T16:50:40.042+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-08-06T16:50:40.047+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
