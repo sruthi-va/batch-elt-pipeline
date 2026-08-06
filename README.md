@@ -376,7 +376,31 @@ terraform destroy
 ````
 
 This destroys provisioned infrastructure and prevents unnecessary cloud costs from unused resources.
+```
+# Dashboard
+
+The Gold layer tables are visualized using Power BI.
+
+The dashboard provides insights into:
+
+- Daily taxi demand trends
+- Revenue patterns
+- Peak pickup hours
+- Top pickup locations
+
+Screenshots:
+
+![Dashboard Overview](docs/screenshots/dashboard_overview.png)
 
 # Future Improvements
 
-- Connect Power BI dashboard
+Potential improvements:
+
+- Add automated data quality monitoring using Great Expectations
+- Add AWS Glue Catalog for metadata management
+- Deploy Airflow using managed services such as MWAA
+- Add incremental loading instead of full batch processing
+- Add CI/CD deployment pipelines for production environments
+- Add dashboard refresh automation
+
+```
