@@ -16,7 +16,7 @@ spark = (
     .appName("SilverToGold")
     .getOrCreate()
 )
-
+print("Starting Silver to Gold transformation...")
 spark.sparkContext.setLogLevel("ERROR")
 
 
@@ -162,5 +162,5 @@ location_metrics.write.mode("overwrite").parquet(
 
 print("Gold tables created successfully!")
 
-
+print("Finished Gold table creation.")
 spark.stop()

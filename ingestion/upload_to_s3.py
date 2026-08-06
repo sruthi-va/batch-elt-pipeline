@@ -22,7 +22,6 @@ S3_KEY = (
 )
 
 s3 = boto3.client("s3")
-
 def upload_file():
     logging.info("Uploading NYC Taxi data...")
 
@@ -40,4 +39,7 @@ def upload_file():
 
 
 if __name__ == "__main__":
+    print("Starting Bronze upload...")
+
     upload_file()
+    print("Finished Bronze upload successfully.")

@@ -11,6 +11,8 @@ spark = (
 
 spark.sparkContext.setLogLevel("ERROR")
 
+print("Starting Gold data quality checks...")
+
 daily_df = spark.read.parquet(
     "data/gold/daily_trip_summary"
 )

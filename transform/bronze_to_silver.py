@@ -3,6 +3,7 @@ from pyspark.sql.functions import col, count, when, hour
 from pyspark.sql.types import IntegerType
 from pyspark.sql.functions import unix_timestamp, dayofweek
 
+print("Starting Bronze to Silver transformation...")
 spark = (
     SparkSession.builder
     .appName("BronzeToSilver")
@@ -174,6 +175,7 @@ df = df.withColumn(
 #     "trip_distance_category"
 # ).show(10)
 
+print("Writing Silver parquet files...")
 silver_path = "/app/output/silver/yellow/year=2025/month=07"
 df.write.mode("overwrite").parquet(silver_path)
 
@@ -184,5 +186,5 @@ print("Silver row count:", silver_df.count())
 silver_df.printSchema()
 
 silver_df.show(5)
-
+print("Finished Silver transformation.")
 spark.stop()
