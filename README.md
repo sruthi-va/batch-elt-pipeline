@@ -391,6 +391,8 @@ The dashboard provides insights into:
 Screenshots:
 
 ![Dashboard Overview](docs/screenshots/dashboard_overview.png)
+![Dashboard Overview](docs/screenshots/demand_analysis.png)
+![Dashboard Overview](docs/screenshots/location_analysis.png)
 
 # Future Improvements
 
