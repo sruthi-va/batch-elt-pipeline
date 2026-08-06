@@ -366,7 +366,6 @@ Pipeline Validation Complete
 ```
 
 This helps catch transformation errors and maintain consistent code quality before changes are merged.
-```
 
 ## Cleaning Up Cloud Resources
 
