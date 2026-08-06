@@ -17,3 +17,6 @@ data/sample/
 .terraform/
 *.tfstate
 *.tfstate.*
+
+*.pem
+*.key

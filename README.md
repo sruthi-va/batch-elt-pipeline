@@ -321,3 +321,19 @@ silver/
 
 Parquet was chosen because it is optimized for analytical workloads and supports efficient column-based queries.
 ```
+## Snowflake Warehouse
+
+Gold analytics tables are loaded into Snowflake:
+
+Database:
+TAXI_ANALYTICS
+
+Schemas:
+- GOLD
+- STAGING
+
+
+Gold Tables:
+- DAILY_TRIP_SUMMARY
+- HOURLY_DEMAND
+- LOCATION_METRICS
