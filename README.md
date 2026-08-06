@@ -332,7 +332,6 @@ validate_gold
    ↓
 load_to_snowflake
 ```
-```markdown
 ## CI/CD
 
 GitHub Actions automatically validates code changes on every push and pull request.
