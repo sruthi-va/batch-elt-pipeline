@@ -368,7 +368,6 @@ Pipeline Validation Complete
 This helps catch transformation errors and maintain consistent code quality before changes are merged.
 ```
 
-````markdown
 ## Cleaning Up Cloud Resources
 
 To remove AWS resources created by Terraform:
