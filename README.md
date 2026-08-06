@@ -398,7 +398,7 @@ gold/
 ```
 
 These tables are optimized for analytics workloads and serve as the source layer for Snowflake and Power BI reporting.
-```
+
 
 ## Snowflake Warehouse
 
