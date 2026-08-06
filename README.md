@@ -373,10 +373,10 @@ To remove AWS resources created by Terraform:
 
 ```bash
 terraform destroy
-````
+```
 
 This destroys provisioned infrastructure and prevents unnecessary cloud costs from unused resources.
-```
+
 # Dashboard
 
 The Gold layer tables are visualized using Power BI.
