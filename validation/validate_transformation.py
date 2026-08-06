@@ -1,11 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, sum
 
-spark = (
-    SparkSession.builder
-    .appName("ValidateTransformation")
-    .getOrCreate()
-)
+spark = SparkSession.builder.appName("ValidateTransformation").getOrCreate()
 
 spark.sparkContext.setLogLevel("ERROR")
 
@@ -25,16 +21,11 @@ print(f"Rows removed: {bronze_count - silver_count}")
 
 
 def null_counts(df):
-    return df.select(
-        [
-            sum(col(c).isNull().cast("int")).alias(c)
-            for c in df.columns
-        ]
-    )
+    return df.select([sum(col(c).isNull().cast("int")).alias(c) for c in df.columns])
+
 
 print("Bronze null counts:")
 null_counts(bronze_df).show()
 
 print("Silver null counts:")
 null_counts(silver_df).show()
-

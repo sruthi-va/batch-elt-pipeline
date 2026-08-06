@@ -4,23 +4,23 @@ from pathlib import Path
 import os
 
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 DATA_URL = os.getenv(
-    "DATA_URL", 
-    "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-07.parquet"
+    "DATA_URL",
+    "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-07.parquet",
 )
 
 OUTPUT_PATH = Path("data/raw/yellow_tripdata_2025-07.parquet")
+
 
 def download_data():
     logging.info("Starting download...")
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    try: 
+    try:
         response = requests.get(DATA_URL, stream=True)
         response.raise_for_status()
     except requests.RequestException as e:

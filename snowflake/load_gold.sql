@@ -3,7 +3,7 @@ USE SCHEMA GOLD;
 
 
 COPY INTO DAILY_TRIP_SUMMARY
-FROM @gold_stage/daily_trip_summary/
+FROM @GOLD_STAGE/daily_trip_summary/
 FILE_FORMAT = (
     TYPE = PARQUET
 )
@@ -11,7 +11,7 @@ MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
 
 
 COPY INTO HOURLY_DEMAND
-FROM @gold_stage/hourly_demand/
+FROM @GOLD_STAGE/hourly_demand/
 FILE_FORMAT = (
     TYPE = PARQUET
 )
@@ -19,7 +19,7 @@ MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
 
 
 COPY INTO LOCATION_METRICS
-FROM @gold_stage/location_metrics/
+FROM @GOLD_STAGE/location_metrics/
 FILE_FORMAT = (
     TYPE = PARQUET
 )

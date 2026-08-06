@@ -20,3 +20,14 @@ data/sample/
 
 *.pem
 *.key
+
+# Airflow
+airflow/logs/
+airflow/__pycache__/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/

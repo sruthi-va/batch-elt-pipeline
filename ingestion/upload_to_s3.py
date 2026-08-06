@@ -4,24 +4,17 @@ import os
 from pathlib import Path
 
 logging.basicConfig(
-    level=logging.INFO, 
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 LOCAL_FILE = "data/raw/yellow_tripdata_2025-07.parquet"
-BUCKET_NAME = os.getenv(
-    "BUCKET_NAME", 
-    "nyc-taxi-bronze-sruthi"
-)
+BUCKET_NAME = os.getenv("BUCKET_NAME", "nyc-taxi-bronze-sruthi")
 
-S3_KEY = (
-    "bronze/yellow/"
-    "year=2025/"
-    "month=07/"
-    "yellow_tripdata_2025-07.parquet"
-)
+S3_KEY = "bronze/yellow/" "year=2025/" "month=07/" "yellow_tripdata_2025-07.parquet"
 
 s3 = boto3.client("s3")
+
+
 def upload_file():
     logging.info("Uploading NYC Taxi data...")
 
@@ -34,8 +27,6 @@ def upload_file():
         logging.info("Upload complete!")
     except Exception as e:
         logging.error(f"Error occurred while uploading file: {e}")
-
-
 
 
 if __name__ == "__main__":

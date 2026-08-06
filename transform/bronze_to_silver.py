@@ -5,8 +5,7 @@ from pyspark.sql.functions import unix_timestamp, dayofweek
 
 print("Starting Bronze to Silver transformation...")
 spark = (
-    SparkSession.builder
-    .appName("BronzeToSilver")
+    SparkSession.builder.appName("BronzeToSilver")
     .config("spark.hadoop.hadoop.home.dir", "C:/hadoop")
     .getOrCreate()
 )
@@ -22,17 +21,17 @@ df = spark.read.parquet(file_path)
 
 
 # Profiling code:
-#null_counts = df.select([
+# null_counts = df.select([
 #    count(when(col(c).isNull(), c)).alias(c)
 #    for c in df.columns
-#])
+# ])
 
-#null_counts.show(vertical=True, truncate=False)
+# null_counts.show(vertical=True, truncate=False)
 
 
-#null_counts.show()
+# null_counts.show()
 
-#df.groupBy("passenger_count") \
+# df.groupBy("passenger_count") \
 #    .count() \
 #    .orderBy("passenger_count") \
 #    .show()
@@ -68,30 +67,24 @@ df = spark.read.parquet(file_path)
 
 # print(f"Trips with dropoff before pickup: {invalid_timestamps}")
 
-#Data Cleaning and Transformation
-#print("Before cleaning:", df.count())
+# Data Cleaning and Transformation
+# print("Before cleaning:", df.count())
 df = df.dropDuplicates()
-df = df.filter(
-    col("tpep_dropoff_datetime") >= col("tpep_pickup_datetime")
-)
+df = df.filter(col("tpep_dropoff_datetime") >= col("tpep_pickup_datetime"))
 
-df = df.fillna({
-    "congestion_surcharge": 0,
-    "Airport_fee": 0
-})
-#print("After cleaning:", df.count())
+df = df.fillna({"congestion_surcharge": 0, "Airport_fee": 0})
+# print("After cleaning:", df.count())
 
 
 null_check = df.select(
     count(when(col("congestion_surcharge").isNull(), True)).alias("congestion_nulls"),
-    count(when(col("Airport_fee").isNull(), True)).alias("airport_fee_nulls")
+    count(when(col("Airport_fee").isNull(), True)).alias("airport_fee_nulls"),
 )
 
-#null_check.show()
+# null_check.show()
 
 df = (
-    df
-    .withColumnRenamed("VendorID", "vendor_id")
+    df.withColumnRenamed("VendorID", "vendor_id")
     .withColumnRenamed("tpep_pickup_datetime", "pickup_datetime")
     .withColumnRenamed("tpep_dropoff_datetime", "dropoff_datetime")
     .withColumnRenamed("RatecodeID", "rate_code_id")
@@ -100,67 +93,45 @@ df = (
     .withColumnRenamed("Airport_fee", "airport_fee")
 )
 
-#df.groupBy("store_and_fwd_flag").count().show()
+# df.groupBy("store_and_fwd_flag").count().show()
 
 df = (
-    df
-    .withColumn(
-        "passenger_count",
-        col("passenger_count").cast(IntegerType())
-    )
-    .withColumn(
-        "rate_code_id",
-        col("rate_code_id").cast(IntegerType())
-    )
-    .withColumn(
-        "payment_type",
-        col("payment_type").cast(IntegerType())
-    )
+    df.withColumn("passenger_count", col("passenger_count").cast(IntegerType()))
+    .withColumn("rate_code_id", col("rate_code_id").cast(IntegerType()))
+    .withColumn("payment_type", col("payment_type").cast(IntegerType()))
 )
 
-#df.printSchema()
+# df.printSchema()
 
 
-#Derived Columns
+# Derived Columns
 df = df.withColumn(
     "trip_duration_minutes",
-    (
-        unix_timestamp(col("dropoff_datetime")) -
-        unix_timestamp(col("pickup_datetime"))
-    ) / 60
+    (unix_timestamp(col("dropoff_datetime")) - unix_timestamp(col("pickup_datetime")))
+    / 60,
 )
 
 df = df.withColumn(
     "average_speed_mph",
     when(
         col("trip_duration_minutes") > 0,
-        col("trip_distance") / (col("trip_duration_minutes") / 60)
-    )
+        col("trip_distance") / (col("trip_duration_minutes") / 60),
+    ),
 )
 
-df = df.withColumn(
-    "pickup_hour",
-    hour(col("pickup_datetime"))
-)
+df = df.withColumn("pickup_hour", hour(col("pickup_datetime")))
+
+df = df.withColumn("pickup_day_of_week", dayofweek(col("pickup_datetime")))
 
 df = df.withColumn(
-    "pickup_day_of_week",
-    dayofweek(col("pickup_datetime"))
-)
-
-df = df.withColumn(
-    "is_weekend",
-    when(
-        col("pickup_day_of_week").isin(1,7),
-        True
-    ).otherwise(False)
+    "is_weekend", when(col("pickup_day_of_week").isin(1, 7), True).otherwise(False)
 )
 
 df = df.withColumn(
     "trip_distance_category",
     when(col("trip_distance") < 5, "short")
     .when(col("trip_distance") < 15, "medium")
-    .otherwise("long")
+    .otherwise("long"),
 )
 
 # df.select(
