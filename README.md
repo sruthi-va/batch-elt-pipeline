@@ -28,16 +28,16 @@ flowchart TD
 
 A[NYC TLC Yellow Taxi Dataset<br/>July 2025] --> B
 
-B[Bronze Layer<br/>Raw Data<br/>AWS S3] --> C
+B[Bronze Layer<br/>Raw Parquet<br/>AWS S3] --> C
 
 C[Silver Layer<br/>PySpark Cleaning<br/>Processed Parquet] --> D
 
-D[Gold Layer<br/>Analytics Tables] --> E
+D[Gold Layer<br/>Analytics Aggregations<br/>AWS S3] --> E
 
-E[Snowflake Warehouse] --> F
+E[Snowflake Warehouse<br/>TAXI_ANALYTICS] --> F
 
 F[Power BI Dashboard]
-````
+```
 
 ## Technology Stack
 
@@ -48,9 +48,9 @@ F[Power BI Dashboard]
 | Terraform  | Infrastructure as Code           |
 | boto3      | Upload data to S3                |
 | PySpark    | Data cleaning and transformation |
-| Snowflake  | Data warehouse (planned)         |
+| Snowflake  | Analytics data warehouse         |
 | Airflow    | Pipeline orchestration (planned) |
-| Power BI   | Visualization (planned)          |
+| Power BI   | Analytics visualization (planned)|
 
 ## Project Structure
 
@@ -321,19 +321,115 @@ silver/
 
 Parquet was chosen because it is optimized for analytical workloads and supports efficient column-based queries.
 ```
+
+# Silver → Gold Transformation
+
+The Gold layer contains analytics-ready tables created from the Silver dataset using PySpark aggregations.
+
+Unlike the Silver layer, which stores cleaned trip-level records, the Gold layer contains business-focused metrics optimized for reporting and dashboarding.
+
+## Gold Tables
+
+### Daily Trip Summary
+
+Answers:
+
+> How does taxi demand and revenue change over time?
+
+Schema:
+
+| Column | Description |
+| ------ | ----------- |
+| date | Trip date |
+| total_trips | Number of trips completed |
+| avg_trip_distance | Average trip distance |
+| avg_trip_duration_minutes | Average trip duration |
+| avg_fare_amount | Average fare per trip |
+| avg_tip_amount | Average tip amount |
+| total_revenue | Total revenue generated |
+| avg_speed_mph | Average trip speed |
+
+
+### Hourly Demand
+
+Answers:
+
+> What times of day have the highest taxi activity?
+
+Schema:
+
+| Column | Description |
+| ------ | ----------- |
+| pickup_hour | Hour of day |
+| total_trips | Number of trips |
+| avg_fare | Average fare |
+| avg_distance | Average trip distance |
+| avg_duration | Average trip duration |
+| weekend_flag | Weekend indicator |
+
+
+### Location Metrics
+
+Answers:
+
+> Which pickup locations generate the most activity and revenue?
+
+Schema:
+
+| Column | Description |
+| ------ | ----------- |
+| pickup_location_id | Taxi zone identifier |
+| total_trips | Number of trips |
+| total_revenue | Revenue generated |
+| avg_fare | Average fare |
+| avg_tip_percentage | Average tip percentage |
+| avg_trip_distance | Average trip distance |
+
+
+Gold tables are stored as Parquet files:
+
+```
+
+gold/
+├── daily_trip_summary/
+├── hourly_demand/
+└── location_metrics/
+
+```
+
+These tables are optimized for analytics workloads and serve as the source layer for Snowflake and Power BI reporting.
+```
+
 ## Snowflake Warehouse
 
-Gold analytics tables are loaded into Snowflake:
+Gold analytics tables are loaded into Snowflake for querying and visualization.
 
 Database:
+
+```
+
 TAXI_ANALYTICS
 
-Schemas:
-- GOLD
-- STAGING
+```
 
+Schemas:
+
+```
+
+GOLD
+STAGING
+
+```
 
 Gold Tables:
-- DAILY_TRIP_SUMMARY
-- HOURLY_DEMAND
-- LOCATION_METRICS
+
+```
+
+GOLD.DAILY_TRIP_SUMMARY
+GOLD.HOURLY_DEMAND
+GOLD.LOCATION_METRICS
+
+```
+
+The Snowflake warehouse acts as the serving layer for downstream analytics tools such as Power BI.
+```
